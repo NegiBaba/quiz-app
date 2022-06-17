@@ -16,6 +16,32 @@ const theme = createTheme({
 			main: "#44B77B",
 		},
 	},
+	typography: {
+		fontFamily: "Nunito",
+		h6: {
+			fontSize: "18px",
+			fontWeight: 400,
+			opacity: 0.8,
+			mixBlendMode: "normal",
+			lineHeight: "161%",
+		},
+	},
+	components: {
+		MuiButton: {
+			defaultProps: {
+				fullWidth: true,
+				disableElevation: true,
+			},
+			styleOverrides: {
+				root: {
+					fontWeight: "900",
+					borderRadius: "80px",
+					textTransform: "none",
+					padding: "14px 0px 13px",
+				},
+			},
+		},
+	},
 });
 
 export default theme;
