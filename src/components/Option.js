@@ -2,12 +2,8 @@ import { Box } from "@mui/system";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { Typography } from "@mui/material";
-import { useEffect } from "react";
 
 export const Option = ({ content, showAnswer, isCorrect }) => {
-	useEffect(() => {
-		console.log(isCorrect);
-	});
 	return (
 		<Box
 			sx={{
