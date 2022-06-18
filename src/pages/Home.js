@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 
 import { Button } from "../components/Button";
 
-import brandIcon from "../icons/brand.svg";
+import brandIcon from "../assets/icons/brand.svg";
 
 export const Home = () => {
 	return (
