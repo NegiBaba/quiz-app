@@ -23,9 +23,7 @@ export const Button = ({ label, type }) => {
 				<MuiButton
 					variant="contained"
 					sx={{
-						position: "absolute",
-						bottom: 0,
-						fontSize: "28px",
+						fontSize: "26px",
 					}}
 				>
 					{label}

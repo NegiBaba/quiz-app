@@ -37,7 +37,7 @@ const theme = createTheme({
 					fontWeight: "900",
 					borderRadius: "80px",
 					textTransform: "none",
-					padding: "14px 0px 13px",
+					padding: "10px 0px",
 				},
 			},
 		},
