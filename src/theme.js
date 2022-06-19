@@ -15,12 +15,15 @@ const theme = createTheme({
 			light: "#35D299",
 			main: "#44B77B",
 		},
+		grey: {
+			main: "#F3F4FA",
+		},
 	},
 	typography: {
 		fontFamily: "Nunito",
 		h6: {
-			fontSize: "18px",
-			fontWeight: 400,
+			fontSize: "16px",
+			fontWeight: 600,
 			opacity: 0.8,
 			mixBlendMode: "normal",
 			lineHeight: "161%",
@@ -38,6 +41,16 @@ const theme = createTheme({
 					borderRadius: "80px",
 					textTransform: "none",
 					padding: "10px 0px",
+				},
+			},
+		},
+		MuiCircularProgress: {
+			styleOverrides: {
+				root: {
+					"color": "#44B77B",
+					"& .MuiCircularProgress-circle": {
+						strokeLinecap: "round",
+					},
 				},
 			},
 		},

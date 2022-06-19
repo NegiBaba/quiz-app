@@ -3,20 +3,24 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { Typography } from "@mui/material";
 
-export const Option = ({ content, showAnswer, isCorrect }) => {
+export const Option = ({ content, showAnswer, isCorrect, handleSelection }) => {
 	return (
 		<Box
 			sx={{
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "flex-start",
-				fontSize: "20px",
-				backgroundColor: "#F3F4FA",
-				padding: "20px 0 20px 20px",
-				borderRadius: "12px",
-				border: `${showAnswer ? "2px solid" : ""}`,
-				borderColor: `${isCorrect ? "success.main" : ""}`,
+				"p": "28px 0 28px 20px",
+				"my": "10px",
+				"border": `${showAnswer ? "2px solid" : ""}`,
+				"display": "flex",
+				"alignItems": "center",
+				"borderRadius": "12px",
+				"backgroundColor": "#F3F4FA",
+				"justifyContent": "flex-start",
+				"borderColor": `${isCorrect ? "success.main" : "error.main"}`,
+				"&:hover": {
+					cursor: "pointer",
+				},
 			}}
+			onClick={handleSelection}
 		>
 			{showAnswer ? (
 				<CheckCircleIcon
