@@ -1,18 +1,32 @@
 import { Button as MuiButton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-export const Button = ({ label, type }) => {
+export const Button = ({ label, type, fetchMethod, navigateMethod }) => {
+	const startQuiz = () => {
+		fetchMethod();
+	};
+
 	const renderButton = () => {
 		if (type && type === "next") {
 			return (
 				<MuiButton
 					variant="contained"
 					sx={{
-						fontSize: "30px",
-						lineHeight: "67px",
+						height: "65px",
+						fontSize: "22px",
 					}}
+					onClick={navigateMethod}
 					endIcon={
-						<ArrowForwardIcon sx={{ minHeight: "40px", minWidth: "40px" }} />
+						<ArrowForwardIcon
+							sx={{
+								top: "50%",
+								right: "30px",
+								position: "absolute",
+								minHeight: "18px",
+								minWidth: "18px",
+								transform: "translateY(-50%)",
+							}}
+						/>
 					}
 				>
 					{label}
@@ -25,6 +39,7 @@ export const Button = ({ label, type }) => {
 					sx={{
 						fontSize: "26px",
 					}}
+					onClick={startQuiz}
 				>
 					{label}
 				</MuiButton>
