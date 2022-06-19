@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Question } from "./pages/Question";
+import { Score } from "./pages/Score";
 
 function App() {
 	const [questions, setQuestions] = useState([]);
@@ -44,6 +45,7 @@ function App() {
 					}
 				/>
 				<Route path="/question/:index" element={<QuestionChild />} />
+				<Route path="/score" element={<Score score={1} total={2} />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
