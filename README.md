@@ -33,6 +33,9 @@ npm i
 npm start
 ```
 
+After the server has started add /quiz-app after localhost:PORT to modify it as given
+localhost:3000/quiz-app
+
 #### For production environments...
 
 Since the application is deployed in github pages the developer needs to look into the custom scripts *predeploy* and *deploy* to serve their own custom purposes.
