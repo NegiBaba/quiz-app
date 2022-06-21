@@ -25,16 +25,13 @@ This web application uses these different technologies:
 
 Clone the repo using the link or GitHub CLI
 
-Install the dependencies and devDependencies and start the local server.
+Install the dependencies and devDependencies and start the local server and head to the given server link.
 
 ```sh
 cd quiz-app
 npm i
 npm start
 ```
-
-After the server has started add /quiz-app after localhost:PORT to modify it as given
-localhost:3000/quiz-app
 
 #### For production environments...
 
