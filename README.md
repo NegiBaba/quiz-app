@@ -44,6 +44,8 @@ Add the following scripts to the package.json(if not present)
 "deploy": "gh-pages -d build",
 ```
 
+and then deploy using this command
+
 ```sh
 npm run deploy
 ```
