@@ -2,8 +2,27 @@ import { Box } from "@mui/system";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { Typography } from "@mui/material";
+import { connect } from "react-redux";
+import { get } from "lodash";
+import { increaseScore } from "../actions/scoreActions";
+import { updateShowAnswerState } from "../actions/questionsActions";
 
-export const Option = ({ content, showAnswer, isCorrect, handleSelection }) => {
+const Option = ({
+	answer,
+	score,
+	content,
+	showAnswer,
+	isCorrect,
+	increaseScore,
+	updateShowAnswerState,
+}) => {
+	const validateCurrentOption = () => {
+		if (!showAnswer) {
+			if (answer === content) increaseScore(score + 1);
+			updateShowAnswerState(true);
+		}
+	};
+
 	return (
 		<Box
 			sx={{
@@ -20,7 +39,7 @@ export const Option = ({ content, showAnswer, isCorrect, handleSelection }) => {
 					cursor: "pointer",
 				},
 			}}
-			onClick={handleSelection}
+			onClick={validateCurrentOption}
 		>
 			{showAnswer ? (
 				<CheckCircleIcon
@@ -47,3 +66,12 @@ export const Option = ({ content, showAnswer, isCorrect, handleSelection }) => {
 		</Box>
 	);
 };
+
+const mapStateToProps = (state) => ({
+	score: get(state, "score.score", 0),
+});
+
+export default connect(mapStateToProps, {
+	increaseScore,
+	updateShowAnswerState,
+})(Option);

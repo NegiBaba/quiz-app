@@ -1,38 +1,47 @@
-import { CircularProgress, Typography } from "@mui/material";
+import { get } from "lodash";
 import { Box } from "@mui/system";
+import { connect } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { CircularProgress, Typography } from "@mui/material";
 
-import { Option } from "../components/Option";
+import Option from "../components/Option";
 import { Button } from "../components/Button";
 
 import background from "../assets/images/background.svg";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { updateShowAnswerState } from "../actions/questionsActions";
 
-export const Question = ({
-	question,
+const Question = ({
+	questions,
 	totalQuestions,
-	currentScore,
-	changeScore,
+	showAnswers,
+	updateShowAnswerState,
 }) => {
-	const params = useParams();
+	const { index } = useParams();
 	const navigate = useNavigate();
-	const [showAnswers, setAnswersState] = useState(false);
 
-	const validateAnswer = (event) => {
-		if (!showAnswers) setAnswersState(true);
-		if (event.currentTarget.dataset.answer === question.answer) {
-			changeScore(currentScore + 1);
+	const renderOptions = () => {
+		if (questions[index] && questions[index].options) {
+			return questions[index].options.map((item) => (
+				<Option
+					key={item}
+					answer={questions[index].answer}
+					content={item}
+					showAnswer={showAnswers ? questions[index].answer === item : null}
+					isCorrect={showAnswers ? questions[index].answer === item : null}
+				/>
+			));
 		}
 	};
 
-	const navigateToNextMethod = () => {
-		if (Number.parseInt(totalQuestions) - 1 === Number.parseInt(params.index)) {
+	const navigateToNextPage = () => {
+		if (!showAnswers) {
+			alert("Please select an answer");
+		} else if (Number.parseInt(totalQuestions) - 1 <= Number.parseInt(index)) {
 			navigate("/score");
 		} else {
-			setAnswersState(false);
-			navigate(`/question/${Number.parseInt(params.index) + 1}`);
+			updateShowAnswerState(false);
+			navigate(`/question/${Number.parseInt(index) + 1}`);
 		}
-		setAnswersState(false);
 	};
 
 	return (
@@ -114,9 +123,7 @@ export const Question = ({
 							transform: "translate(-50%, -50%)",
 						}}
 					>
-						<Typography variant="h4">
-							{Number.parseInt(params.index) + 1}
-						</Typography>
+						<Typography variant="h4">{Number.parseInt(index) + 1}</Typography>
 						<Typography variant="h6" sx={{ pt: "10px" }}>
 							/{totalQuestions}
 						</Typography>
@@ -132,29 +139,18 @@ export const Question = ({
 						fontFamily: "Nunito",
 					}}
 				>
-					{question ? question.question : ""}
+					{questions[index] && questions[index].question}
 				</Typography>
-				{question && question.image ? (
+				{questions[index] && questions[index].image ? (
 					<Box>
 						<img
-							src={question.image}
+							src={questions[index].image}
 							width={window.innerWidth - 40}
 							alt="MCQ"
 						/>
 					</Box>
 				) : null}
-				{question
-					? question.options.map((item) => (
-							<Option
-								key={item}
-								data-answer={item}
-								content={item}
-								showAnswer={showAnswers ? question.answer === item : null}
-								isCorrect={showAnswers ? question.answer === item : null}
-								handleSelection={validateAnswer}
-							/>
-					  ))
-					: ""}
+				{renderOptions()}
 			</Box>
 			<Box
 				sx={{
@@ -166,11 +162,17 @@ export const Question = ({
 				<Button
 					label="Next"
 					type="next"
-					currentPage={params.index}
-					totalQuestions={totalQuestions}
-					navigateMethod={navigateToNextMethod}
+					handleClick={navigateToNextPage}
 				></Button>
 			</Box>
 		</Box>
 	);
 };
+
+const mapStateToProps = (state) => ({
+	questions: get(state, "root.questions", []),
+	totalQuestions: get(state, "root.questions", []).length,
+	showAnswers: get(state, "root.showAnswers", null),
+});
+
+export default connect(mapStateToProps, { updateShowAnswerState })(Question);
