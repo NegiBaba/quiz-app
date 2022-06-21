@@ -5,7 +5,7 @@ import Score from "./pages/Score";
 
 function App() {
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename={process.env.PUBLIC_URL}>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/question/:index" element={<Question />} />
