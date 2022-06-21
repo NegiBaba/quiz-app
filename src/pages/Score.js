@@ -7,8 +7,9 @@ import background from "../assets/images/background.svg";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import { useNavigate } from "react-router-dom";
+import { updateShowAnswerState } from "../actions/questionsActions";
 
-const Score = ({ score, total }) => {
+const Score = ({ score, total, updateShowAnswerState }) => {
 	const navigate = useNavigate();
 	const calculateScore = () => {
 		const finalScore = Number.parseInt(score);
@@ -18,6 +19,7 @@ const Score = ({ score, total }) => {
 	};
 
 	const navigateToHome = () => {
+		updateShowAnswerState(false);
 		navigate("/");
 	};
 
@@ -174,4 +176,4 @@ const mapStateToProps = (state) => ({
 	total: get(state, "root.questions", []).length,
 });
 
-export default connect(mapStateToProps)(Score);
+export default connect(mapStateToProps, { updateShowAnswerState })(Score);
