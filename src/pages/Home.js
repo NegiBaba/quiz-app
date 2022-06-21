@@ -1,23 +1,20 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { connect } from "react-redux";
 
 import { Button } from "../components/Button";
 
 import brandIcon from "../assets/icons/brand.svg";
+import { fetchAllQuestions } from "../actions/questionsActions";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
-export const Home = ({ fetchQuestions, questionsState }) => {
+const Home = ({ dispatch }) => {
 	const navigate = useNavigate();
 	const fetchQuestionsAndRedirect = () => {
-		fetchQuestions();
-	};
-
-	useEffect(() => {
-		if (questionsState === true) {
+		dispatch(fetchAllQuestions()).then(() => {
 			navigate("/question/0");
-		}
-	});
+		});
+	};
 
 	return (
 		<Box
@@ -81,8 +78,10 @@ export const Home = ({ fetchQuestions, questionsState }) => {
 				</Typography>
 			</Box>
 			<Box sx={{ p: "32px", width: "100%" }}>
-				<Button label="Start" fetchMethod={fetchQuestionsAndRedirect}></Button>
+				<Button label="Start" handleClick={fetchQuestionsAndRedirect}></Button>
 			</Box>
 		</Box>
 	);
 };
+
+export default connect()(Home);

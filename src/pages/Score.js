@@ -4,14 +4,23 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Button } from "../components/Button";
 
 import background from "../assets/images/background.svg";
+import { connect } from "react-redux";
+import { get } from "lodash";
+import { useNavigate } from "react-router-dom";
 
-export const Score = ({ score, total }) => {
+const Score = ({ score, total }) => {
+	const navigate = useNavigate();
 	const calculateScore = () => {
 		const finalScore = Number.parseInt(score);
 		const totalScore = Number.parseInt(total);
 
-		return (finalScore / totalScore) * 100;
+		return Number.parseInt((finalScore / totalScore) * 100);
 	};
+
+	const navigateToHome = () => {
+		navigate("/");
+	};
+
 	return (
 		<Box
 			sx={{
@@ -154,8 +163,15 @@ export const Score = ({ score, total }) => {
 					position: "fixed",
 				}}
 			>
-				<Button label="Start again"></Button>
+				<Button label="Start again" handleClick={navigateToHome}></Button>
 			</Box>
 		</Box>
 	);
 };
+
+const mapStateToProps = (state) => ({
+	score: get(state, "score.score", 0),
+	total: get(state, "root.questions", []).length,
+});
+
+export default connect(mapStateToProps)(Score);

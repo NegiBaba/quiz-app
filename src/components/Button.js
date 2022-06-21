@@ -1,11 +1,7 @@
 import { Button as MuiButton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-export const Button = ({ label, type, fetchMethod, navigateMethod }) => {
-	const startQuiz = () => {
-		fetchMethod();
-	};
-
+export const Button = ({ label, type, handleClick }) => {
 	const renderButton = () => {
 		if (type && type === "next") {
 			return (
@@ -15,7 +11,7 @@ export const Button = ({ label, type, fetchMethod, navigateMethod }) => {
 						height: "65px",
 						fontSize: "22px",
 					}}
-					onClick={navigateMethod}
+					onClick={handleClick}
 					endIcon={
 						<ArrowForwardIcon
 							sx={{
@@ -39,7 +35,7 @@ export const Button = ({ label, type, fetchMethod, navigateMethod }) => {
 					sx={{
 						fontSize: "26px",
 					}}
-					onClick={startQuiz}
+					onClick={handleClick}
 				>
 					{label}
 				</MuiButton>
