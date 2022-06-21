@@ -3,7 +3,7 @@
 #
 #
 
-[Upraised Quiz application](https://negibaba.github.io/quiz-app/ ,"Web app link") is a simple online quiz application with internal scoring system.
+[Upraised Quiz application](https://negibaba.github.io/quiz-app/) is a simple online quiz application with internal scoring system.
 
 ## Features
 
