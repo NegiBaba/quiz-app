@@ -1,13 +1,17 @@
+import { get } from "lodash";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import { Button } from "../components/Button";
 
-import background from "../assets/images/background.svg";
-import { connect } from "react-redux";
-import { get } from "lodash";
-import { useNavigate } from "react-router-dom";
 import { updateShowAnswerState } from "../actions/questionsActions";
+
+import background from "../assets/images/background.svg";
+import meterArrow from "../assets/images/meter_arrow.png";
+import meterFg from "../assets/images/meter_foreground.svg";
+import meterBg from "../assets/images/meter_background.svg";
 
 const Score = ({ score, total, updateShowAnswerState }) => {
 	const navigate = useNavigate();
@@ -16,6 +20,13 @@ const Score = ({ score, total, updateShowAnswerState }) => {
 		const totalScore = Number.parseInt(total);
 
 		return Number.parseInt((finalScore / totalScore) * 100);
+	};
+
+	const calculateMeterArrowRotation = () => {
+		let oldRangeDiff = 100,
+			newRangeDiff = 180;
+		const value = (calculateScore() * newRangeDiff) / oldRangeDiff - 90;
+		return value;
 	};
 
 	const navigateToHome = () => {
@@ -63,40 +74,101 @@ const Score = ({ score, total, updateShowAnswerState }) => {
 				</Typography>
 				<Box
 					sx={{
-						mt: "60px",
-						mb: "30px",
-						height: "132px",
-						width: "132px",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						borderRadius: "50%",
-						boxShadow: " 0px 3px 10px rgba(0,0,0,0.08)",
-						backgroundColor: "white",
+						padding: "20px",
+						width: "100%",
+						height: "360px",
+						position: "relative",
 					}}
 				>
 					<Box
 						sx={{
+							left: "50%",
+							top: "150px",
+							zIndex: "1000",
+							position: "absolute",
+							transform: "translate(-50%, -50%)",
+						}}
+					>
+						<img
+							src={meterFg}
+							height={260}
+							width={270}
+							alt="Meter background"
+						/>
+					</Box>
+					<Box
+						sx={{
+							top: "50%",
+							left: "50%",
+							position: "absolute",
+							transform: "translate(-50%, -50%)",
+						}}
+					>
+						<img
+							src={meterBg}
+							height={260}
+							width={260}
+							alt="Meter background"
+						/>
+					</Box>
+					<Box
+						sx={{
+							top: "30%",
+							left: "50%",
+							transform: "translateX(-50%)",
+							position: "absolute",
+						}}
+					>
+						<Box
+							component="img"
+							src={meterArrow}
+							height={100}
+							alt="Meter arrow"
+							sx={{
+								transform: `rotateZ(${calculateMeterArrowRotation()}deg)`,
+								transformOrigin: "bottom",
+							}}
+						/>
+					</Box>
+					<Box
+						sx={{
+							top: "50%",
+							left: "50%",
+							width: "132px",
+							height: "132px",
 							display: "flex",
+							position: "absolute",
+							boxShadow: " 0px 3px 10px rgba(0,0,0,0.08)",
+							transform: "translate(-50%, -30%)",
 							alignItems: "center",
-							justifyContent: "center",
-							height: "120px",
-							width: "120px",
 							borderRadius: "50%",
-							border: "1px solid",
-							borderColor: "rgba(0, 0, 0, 0.08)",
+							justifyContent: "center",
 							backgroundColor: "white",
 						}}
 					>
-						<Typography
-							variant="h4"
+						<Box
 							sx={{
-								fontWeight: 900,
-								color: "grey.dark",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								height: "120px",
+								width: "120px",
+								borderRadius: "50%",
+								border: "1px solid",
+								borderColor: "rgba(0, 0, 0, 0.08)",
+								backgroundColor: "white",
 							}}
 						>
-							{calculateScore()}%
-						</Typography>
+							<Typography
+								variant="h4"
+								sx={{
+									fontWeight: 900,
+									color: "grey.dark",
+								}}
+							>
+								{calculateScore()}%
+							</Typography>
+						</Box>
 					</Box>
 				</Box>
 				<Box
