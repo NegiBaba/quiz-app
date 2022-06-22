@@ -7,8 +7,8 @@
 
 ## Features
 
-- Designed and developed as Mobile first approach.
-- Uses mock API to fetch and list the different questions.
+- Designed and developed with Mobile first approach.
+- Uses mock API to fetch and list the multiple choice questions.
 
 ## Technologies
 
